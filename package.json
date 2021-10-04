@@ -1,0 +1,23 @@
+{
+    "name": "boom-boom-kdo-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "dev": "nodemon src/app.js -e js,hbs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gstring33/boom-boom-api.git"
+    },
+    "author": "Martin Dhenu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/gstring33/boom-boom-api/issues"
+    },
+    "homepage": "https://github.com/gstring33/boom-boom-api#readme",
+    "devDependencies": {
+        "nodemon": "^2.0.13"
+    }
+}
