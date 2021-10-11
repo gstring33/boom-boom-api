@@ -3,7 +3,6 @@ const app = express()
 const port = process.env.PORT || 3000
 const homeRouter = require('./routes/home')
 const mysql = require('mysql');
-const migration = require('mysql-migrations');
 require('dotenv').config()
 
 const connection = mysql.createConnection({
@@ -17,10 +16,6 @@ const connection = mysql.createConnection({
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
     if (error) throw error;
     console.log('The solution is: ', results[0].solution);
-});
-
-migration.init(connection, __dirname + '/migrations', function() {
-    console.log("finished running migrations");
 });
 
 app.use(express.json())
