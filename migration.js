@@ -1,10 +1,5 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
-const homeRouter = require('./routes/home')
 const mysql = require('mysql');
 const migration = require('mysql-migrations');
-require('dotenv').config()
 
 const connection = mysql.createPool({
     connectionLimit : 10,
@@ -17,10 +12,3 @@ const connection = mysql.createPool({
 migration.init(connection, __dirname + '/migrations', function() {
     console.log("finished running migrations");
 });
-
-app.use(express.json())
-app.use(homeRouter)
-
-app.listen(port)
-
-console.log('Boom boom kdo API')
