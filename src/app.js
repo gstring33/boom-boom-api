@@ -3,8 +3,11 @@ const app = express()
 const port = process.env.PORT || 3000
 const homeRouter = require('./routes/home')
 
-app.use(express.json())
-app.use(homeRouter)
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));app.use(homeRouter)
 
 app.listen(port)
 
