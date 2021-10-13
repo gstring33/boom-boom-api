@@ -16,13 +16,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         is_active: {
-            type: Sequelize.INT
+            type: Sequelize.INTEGER
         },
         allowed_to_choose: {
-            type: Sequelize.INT
+            type: Sequelize.INTEGER
         },
         last_connect: {
-            type: Sequelize.DATETIME
+            type: Sequelize.DATE
         },
     });
 
