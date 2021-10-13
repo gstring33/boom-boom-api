@@ -8,12 +8,12 @@ exports.create = (req, res) => {
     // Validate request
     if (!req.body) {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "Content can not be empty",
         });
         return;
     }
 
-    // Create a Tutorial
+    // Create a User
     const user = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
