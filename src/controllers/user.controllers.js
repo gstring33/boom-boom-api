@@ -20,9 +20,9 @@ exports.create = (req, res) => {
         email: req.body.email,
         password: req.body.email,
         roles: req.body.roles,
-        is_active: req.body.is_active,
+        is_active: 0,
         allowed_to_choose: 0,
-        last_connect: req.body.last_connect
+        last_connect: new Date()
     };
 
     // Save User in the database
