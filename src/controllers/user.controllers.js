@@ -13,6 +13,12 @@ exports.create = (req, res) => {
         return;
     }
 
+    //TODO:
+    // validate data,
+    // hash password,
+    // format roles to json,
+    // use camelcase for is_active and last_connect + adjust it into user model
+
     // Create a User
     const user = {
         firstname: req.body.firstname,
