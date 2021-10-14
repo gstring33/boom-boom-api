@@ -1,7 +1,5 @@
-module.exports = app => {
-    const user = require("../controllers/user.controllers");
-    const router = require("express").Router();
-    const bodyParser = require('body-parser');
+module.exports = (router, bodyParser) => {
+    const user = require("../../controllers/user.controllers");
     const jsonParser = bodyParser.json()
 
     // Create a new User
@@ -15,6 +13,4 @@ module.exports = app => {
 
     // Update a User with id
     router.put("/user/:id", user.update);
-
-    app.use('/api', router);
 };
