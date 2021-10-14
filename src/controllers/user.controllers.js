@@ -14,7 +14,6 @@ exports.create = (req, res) => {
     }
 
     //TODO:
-    // validate data,
     // hash password,
     // format roles to json,
     // use camelcase for is_active and last_connect + adjust it into user model
@@ -26,9 +25,6 @@ exports.create = (req, res) => {
         email: req.body.email,
         password: req.body.password,
         roles: req.body.roles,
-        is_active: 0,
-        allowed_to_choose: 0,
-        last_connect: new Date()
     };
 
     // Save User in the database
