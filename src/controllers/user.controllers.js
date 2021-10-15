@@ -1,4 +1,5 @@
 const db = require("../models");
+const sequelizeConfig = require('../config/sequelize.config')
 const User = db.user;
 const Op = db.Sequelize.Op;
 
@@ -45,9 +46,19 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Users from the database.
+// Retrieve all users
+// Method:GET, Endpoint:/users
 exports.findAll = (req, res) => {
-
+    User.findAll({
+        attributes: sequelizeConfig.models.user.attributes
+    }).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while getting all the User."
+        });
+    });
 };
 
 // Find a single User with an id
