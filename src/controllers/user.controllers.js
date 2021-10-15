@@ -61,9 +61,20 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single User with an id
+// Retrieve one user from id
+// Method:GET, Endpoint:/user/:id
 exports.findOneById = (req, res) => {
-
+    User.findOne({
+        where: { id: req.params.id },
+        attributes: sequelizeConfig.models.user.attributes
+    }).then(data => {
+        res.send(data);
+    }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while getting User with id."
+            });
+        });
 };
 
 // Update a User by the id in the request
