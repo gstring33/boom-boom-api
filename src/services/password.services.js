@@ -1,7 +1,7 @@
 const CryptoJS = require('crypto-js')
 const secret = require('../config/security.config').crypto.secret
 
-exports.validate = (password1, password2) => {
+exports.match = (password1, password2) => {
     return password1 === password2
 }
 

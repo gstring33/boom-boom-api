@@ -14,7 +14,7 @@ exports.create = (req, res) => {
     }
 
     const passwordService = require('../services/password.services')
-    if (!passwordService.validate(req.body.password, req.body.password2)) {
+    if (!passwordService.match(req.body.password, req.body.password2)) {
         res.status(400).send({
             message: "Password do not match",
         });
@@ -44,7 +44,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the User."
             });
         });
 };
