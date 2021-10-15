@@ -13,6 +13,14 @@ exports.create = (req, res) => {
         return;
     }
 
+    const passwordService = require('../services/password.services')
+    if (!passwordService.validate(req.body.password, req.body.password2)) {
+        res.status(400).send({
+            message: "Password do not match",
+        });
+        return;
+    }
+
     //TODO:
     // hash password,
     // format roles to json,
