@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
                 },
             }
         },
-        is_active: {
+        isActive: {
             type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0,
@@ -51,7 +51,7 @@ module.exports = (sequelize, Sequelize) => {
                 max: 1
             }
         },
-        allowed_to_choose: {
+        isChoiceAllowed: {
             type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0,
@@ -61,7 +61,7 @@ module.exports = (sequelize, Sequelize) => {
                 max: 1
             }
         },
-        last_connect: {
+        lastConnectionAt: {
             type: Sequelize.DATE,
             allowNull: true
         },
