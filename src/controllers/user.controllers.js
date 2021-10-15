@@ -21,8 +21,9 @@ exports.create = (req, res) => {
         return;
     }
 
+    const encryptedPassword = passwordService.encrypt(req.body.password)
+
     //TODO:
-    // hash password,
     // format roles to json,
     // use camelcase for is_active and last_connect + adjust it into user model
 
@@ -31,7 +32,7 @@ exports.create = (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password,
+        password: encryptedPassword,
         roles: req.body.roles,
     };
 
