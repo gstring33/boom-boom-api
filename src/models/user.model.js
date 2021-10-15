@@ -26,11 +26,19 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         roles: {
-            type: Sequelize.STRING,
+            type: Sequelize.JSON,
             allowNull: false,
-            defaultValue: 'ROLE_USER',
+            defaultValue: JSON.parse('["ROLE_USER"]'),
             validate: {
-                isIn: [securityConfig.roles],
+                areRolesValid(value) {
+                    const isValidRole = (currentValue) => {
+                        return securityConfig.roles.find((element) => element === currentValue)
+
+                    }
+                    if (!value.every(isValidRole)) {
+                        throw new Error("Roles can not be stored")
+                    }
+                },
             }
         },
         is_active: {
