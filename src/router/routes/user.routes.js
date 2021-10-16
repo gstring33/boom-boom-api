@@ -12,5 +12,5 @@ module.exports = (router, bodyParser) => {
     router.get("/user/:id", user.findOneById);
 
     // Update a User with id
-    router.put("/user/:id", user.update);
+    router.put("/user/:id", jsonParser, user.update);
 };

@@ -78,8 +78,26 @@ exports.findOneById = (req, res) => {
 };
 
 // Update a User by the id in the request
+// Method:PUT, Endpoint:/user/:id
 exports.update = (req, res) => {
+    const user = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        roles: req.body.roles
+    };
 
+    User.update(
+        user,
+        {returning: true, where: { id: req.params.id }}
+    ).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while updating the User."
+        });
+    });
 };
 
 // Delete a User with the specified id in the request
