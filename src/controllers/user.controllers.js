@@ -102,6 +102,16 @@ exports.update = (req, res) => {
 };
 
 // Delete a User with the specified id in the request
+// Method:DELETE, Endpoint:/user/:id
 exports.deleteOne = (req, res) => {
-
+    User.destroy({
+        where: {id: req.params.id}
+    }).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while deleting the User."
+        });
+    });
 };

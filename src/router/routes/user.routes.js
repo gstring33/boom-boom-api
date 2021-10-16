@@ -13,4 +13,7 @@ module.exports = (router, bodyParser) => {
 
     // Update a User with id
     router.put("/user/:id", jsonParser, user.update);
+
+    // Delete a user
+    router.delete("/user/:id", user.deleteOne);
 };
