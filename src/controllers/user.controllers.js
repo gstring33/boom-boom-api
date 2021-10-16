@@ -83,6 +83,7 @@ exports.update = (req, res) => {
     const user = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
+        isActive: req.body.isActive,
         email: req.body.email,
         roles: req.body.roles
     };
