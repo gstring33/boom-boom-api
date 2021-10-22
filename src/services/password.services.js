@@ -6,7 +6,7 @@ exports.match = (password1, password2) => {
 }
 
 exports.encrypt = (password) => {
-    return CryptoJS.AES.encrypt(password, secret).toString();
+    return CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(password), secret).toString();
 }
 
 exports.decrypt = (password) => {
