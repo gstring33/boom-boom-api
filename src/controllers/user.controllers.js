@@ -28,6 +28,8 @@ exports.create = (req, res) => {
     const user = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
+        isActive: 0,
+        isChoiceAllowed: 0,
         email: req.body.email,
         password: encryptedPassword,
         roles: req.body.roles,
