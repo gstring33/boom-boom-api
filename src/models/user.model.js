@@ -44,7 +44,6 @@ module.exports = (sequelize, Sequelize) => {
         isActive: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            defaultValue: 0,
             validate: {
                 isInt: true,
                 min: 0,
@@ -54,7 +53,6 @@ module.exports = (sequelize, Sequelize) => {
         isChoiceAllowed: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            defaultValue: 0,
             validate: {
                 isInt: true,
                 min: 0,
