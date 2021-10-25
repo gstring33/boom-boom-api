@@ -22,6 +22,13 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = require("./user.model.js")(sequelize, Sequelize);
+const user = require("./user.model.js")(sequelize, Sequelize)
+const event = require("./event.model.js")(sequelize, Sequelize)
+
+user.hasMany(event)
+event.belongsTo(user)
+
+db.user = user;
+db.event = event;
 
 module.exports = db;
