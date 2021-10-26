@@ -5,8 +5,8 @@ module.exports = (router, bodyParser) => {
     // Create a new Event
     router.post("/event", jsonParser, event.create);
 
-    // Retrieve all Users
-    //router.get("/events", event.findAll);
+    // Retrieve all Events
+    router.get("/events", event.findAll);
 
     // Retrieve a single Event with id
     //router.get("/event/:id", event.findOneById);

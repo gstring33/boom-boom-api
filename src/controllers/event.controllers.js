@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const Event = db.event;
+const sequelizeConfig = require('../config/sequelize.config')
 
 // Create and Save a new Event
 // Method:POST, Endpoint:/event
@@ -45,3 +46,23 @@ exports.create = (req, res) => {
         });
     });
 };
+
+// Retrieve all  Events
+// Method: GET, Endpoint:/events
+exports.findAll = (req, res) => {
+    Event.findAll({
+        attributes: sequelizeConfig.models.event.attributes,
+        include: {
+            model: User,
+            attributes: ["firstname", "lastname"]
+        }
+    })
+        .then(data => {
+            res.send(data);
+        }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while getting all the User."
+            });
+    });
+}
