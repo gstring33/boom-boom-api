@@ -15,5 +15,5 @@ module.exports = (router, bodyParser) => {
     router.put("/event/:id", jsonParser, event.update);
 
     // Delete an Event
-    //router.delete("/event/:id", event.deleteOne);
+    router.delete("/event/:id", event.deleteOne);
 };

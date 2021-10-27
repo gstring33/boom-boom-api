@@ -105,3 +105,18 @@ exports.update = (req, res) => {
         });
     });
 };
+
+// Delete one event
+// Method:DELETE, Endpoint:/event/:id
+exports.deleteOne = (req, res) => {
+    Event.destroy({
+        where: {id: req.params.id}
+    }).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while deleting the Event."
+        });
+    });
+}
