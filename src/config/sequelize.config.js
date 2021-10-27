@@ -20,6 +20,13 @@ module.exports = {
                 'createdAt',
                 'updatedAt'
             ]
+        },
+        event: {
+            attributes: [
+                "location",
+                "name",
+                "createdAt"
+            ]
         }
     }
 }
