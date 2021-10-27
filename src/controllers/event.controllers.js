@@ -86,3 +86,22 @@ exports.findOneById = (req, res) => {
         });
     });
 }
+
+// Update an Event by the id in the request
+// Method:PUT, Endpoint:/event/:id
+exports.update = (req, res) => {
+    const { location, name} = req.body
+    const event = { location, name };
+
+    Event.update(
+        event,
+        {returning: true, where: { id: req.params.id }}
+    ).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while updating the Event."
+        });
+    });
+};

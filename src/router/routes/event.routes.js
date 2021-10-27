@@ -12,7 +12,7 @@ module.exports = (router, bodyParser) => {
     router.get("/event/:id", event.findOneById);
 
     // Update a Event with id
-    //router.put("/event/:id", jsonParser, event.update);
+    router.put("/event/:id", jsonParser, event.update);
 
     // Delete an Event
     //router.delete("/event/:id", event.deleteOne);
