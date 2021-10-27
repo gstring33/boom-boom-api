@@ -66,3 +66,23 @@ exports.findAll = (req, res) => {
             });
     });
 }
+
+// Retrieve one Event by ID
+// Method: GET, Endpoint::/event/:id
+exports.findOneById = (req, res) => {
+    Event.findOne({
+        where: { id: req.params.id },
+        include: {
+            model: User,
+            attributes: ["firstname", "lastname"]
+        },
+        attributes: sequelizeConfig.models.event.attributes
+    }).then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while getting Event with id."
+        });
+    });
+}

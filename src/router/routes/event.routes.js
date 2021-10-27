@@ -9,7 +9,7 @@ module.exports = (router, bodyParser) => {
     router.get("/events", event.findAll);
 
     // Retrieve a single Event with id
-    //router.get("/event/:id", event.findOneById);
+    router.get("/event/:id", event.findOneById);
 
     // Update a Event with id
     //router.put("/event/:id", jsonParser, event.update);
