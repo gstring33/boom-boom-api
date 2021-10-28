@@ -1,12 +1,12 @@
 require('dotenv').config()
 const sequelizeConfig = require('../config/sequelize.config')
-const securityConfig = require('../config/security.config')
+const databaseConfig = require('../config/database.config')
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    securityConfig.database.name,
-    securityConfig.database.user,
-    securityConfig.database.password, {
-        host: securityConfig.database.host  ,
+    databaseConfig.name,
+    databaseConfig.user,
+    databaseConfig.password, {
+        host: databaseConfig.host  ,
         dialect: sequelizeConfig.dialect,
         operatorsAliases: sequelizeConfig.operatorsAliases,
         pool: {
