@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const db = require('../models')
+const db = require('../db/models')
 db.sequelize.sync()
 
 const router = require('../router')
