@@ -6,15 +6,15 @@ const sequelize = new Sequelize(
     databaseConfig.name,
     databaseConfig.user,
     databaseConfig.password, {
-        host: databaseConfig.host  ,
-        dialect: sequelizeConfig.dialect,
-        operatorsAliases: sequelizeConfig.operatorsAliases,
-        pool: {
-            max: sequelizeConfig.pool.max,
-            min: sequelizeConfig.pool.min,
-            acquire: sequelizeConfig.pool.acquire,
-            idle: sequelizeConfig.pool.idle
-        }
+      host: databaseConfig.host  ,
+      dialect: sequelizeConfig.dialect,
+      operatorsAliases: sequelizeConfig.operatorsAliases,
+      pool: {
+        max: sequelizeConfig.pool.max,
+        min: sequelizeConfig.pool.min,
+        acquire: sequelizeConfig.pool.acquire,
+        idle: sequelizeConfig.pool.idle
+      }
     });
 
 const db = {};
