@@ -24,18 +24,10 @@ exports.create = (req, res) => {
 
     const encryptedPassword = passwordService.encrypt(req.body.password)
 
-    // Create a User
-    const user = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        isActive: 0,
-        isChoiceAllowed: 0,
-        email: req.body.email,
-        password: encryptedPassword,
-        roles: req.body.roles,
-    };
-
     // Save User in the database
+    const { firstname, lastname, isActive, isChoiceAllowed, email, password, roles } = req.body
+    const user = { firstname, lastname, isActive, isChoiceAllowed, email, password, roles }
+
     User.create(user)
         .then(data => {
             res.send(data);
@@ -82,13 +74,8 @@ exports.findOneById = (req, res) => {
 // Update a User by the id in the request
 // Method:PUT, Endpoint:/user/:id
 exports.update = (req, res) => {
-    const user = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        isActive: req.body.isActive,
-        email: req.body.email,
-        roles: req.body.roles
-    };
+    const { firstname, lastname, isActive, email, roles } = req.body
+    const user = { firstname, lastname, isActive, email, roles }
 
     User.update(
         user,
