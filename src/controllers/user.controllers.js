@@ -1,7 +1,6 @@
-const db = require("../models");
-const sequelizeConfig = require('../config/sequelize.config')
+const db = require("../../models");
+const sequelizeConfig = require('../../config/sequelize.config')
 const User = db.user;
-const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 // Method:POST, Endpoint:/user
@@ -13,20 +12,19 @@ exports.create = (req, res) => {
         });
         return;
     }
+    const { firstname, lastname, password, password2, email, roles } = req.body
 
     const passwordService = require('../services/password.services')
-    if (!passwordService.match(req.body.password, req.body.password2)) {
+    if (!passwordService.match(password, password2)) {
         res.status(400).send({
             message: "Password do not match",
         });
         return;
     }
-
-    const encryptedPassword = passwordService.encrypt(req.body.password)
+    const encryptedPassword = passwordService.encrypt(password)
 
     // Save User in the database
-    const { firstname, lastname, isActive, isChoiceAllowed, email, password, roles } = req.body
-    const user = { firstname, lastname, isActive, isChoiceAllowed, email, password, roles }
+    const user = { firstname, lastname, isActive: 0, isChoiceAllowed: 0, email, password: encryptedPassword, roles }
 
     User.create(user)
         .then(data => {

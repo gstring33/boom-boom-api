@@ -1,7 +1,7 @@
-const db = require("../models");
+const db = require("../../models");
 const User = db.user;
 const Event = db.event;
-const sequelizeConfig = require('../config/sequelize.config')
+const sequelizeConfig = require('../../config/sequelize.config')
 
 // Create and Save a new Event
 // Method:POST, Endpoint:/event

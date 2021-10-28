@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const securityConfig = require('../config/security.config')
 
-    const User = sequelize.define("user", {
+    return sequelize.define("user", {
         firstname: {
             type: Sequelize.STRING,
             allowNull: false
@@ -64,6 +64,4 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         },
     });
-
-    return User;
 };

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Event = sequelize.define("event", {
+    return sequelize.define("event", {
         name: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -10,6 +10,4 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         }
     });
-
-    return Event;
 };

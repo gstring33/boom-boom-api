@@ -1,5 +1,5 @@
 module.exports = (router, bodyParser) => {
-    const event = require("../../controllers/event.controllers");
+    const event = require("../../src/controllers/event.controllers");
     const jsonParser = bodyParser.json()
 
     // Create a new Event

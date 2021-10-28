@@ -1,5 +1,5 @@
 module.exports = (router, bodyParser) => {
-    const user = require("../../controllers/user.controllers");
+    const user = require("../../src/controllers/user.controllers");
     const jsonParser = bodyParser.json()
 
     // Create a new User
