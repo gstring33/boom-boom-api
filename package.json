@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node src/app.js",
         "dev": "nodemon src/app.js -e js,hbs",
-        "create-migration": "node migration.js add migration create_table_users"
+        "migrate": "npx sequelize-cli db:migrate",
+        "migrate-undo": "npx sequelize-cli db:migrate:undo"
     },
     "repository": {
         "type": "git",
