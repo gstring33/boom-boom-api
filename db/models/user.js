@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
         max: 1
       }
     },
-    lastConnectedAt: {
+    lastConnectionAt: {
       type: DataTypes.DATE,
       allowNull: true
     },
