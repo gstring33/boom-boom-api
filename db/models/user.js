@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const securityConfig = require('../../config/security.config')
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**

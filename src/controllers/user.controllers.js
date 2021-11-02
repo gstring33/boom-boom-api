@@ -1,6 +1,6 @@
 const db = require("../../db/models");
 const sequelizeConfig = require('../../config/sequelize.config')
-const User = db.user;
+const User = db.User;
 
 // Create and Save a new User
 // Method:POST, Endpoint:/user
