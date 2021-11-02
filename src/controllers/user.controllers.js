@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 // Method:GET, Endpoint:/users
 exports.findAll = (req, res) => {
     User.findAll({
-        attributes: sequelizeConfig.models.user.attributes
+        attributes: sequelizeConfig.attributes.user
     }).then(data => {
         res.send(data);
     }).catch(err => {
@@ -58,7 +58,7 @@ exports.findAll = (req, res) => {
 exports.findOneById = (req, res) => {
     User.findOne({
         where: { id: req.params.id },
-        attributes: sequelizeConfig.models.user.attributes
+        attributes: sequelizeConfig.attributes.user
     }).then(data => {
         res.send(data);
     }).catch(err => {

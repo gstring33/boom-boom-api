@@ -1,6 +1,6 @@
 const db = require("../../db/models");
-const User = db.user;
-const Event = db.event;
+const User = db.User;
+const Event = db.Events;
 const sequelizeConfig = require('../../config/sequelize.config')
 
 // Create and Save a new Event
@@ -15,8 +15,8 @@ exports.create = (req, res) => {
     }
 
     // Save Event in the database
-    const { userId, name, location } = req.body
-    const event = { userId, name, location };
+    const { userId, name, location, eventAt } = req.body
+    const event = { name, location, eventAt };
 
     User.findOne({
         where: { id: userId },
@@ -38,7 +38,6 @@ exports.create = (req, res) => {
                         err.message || "Some error occurred while creating the Event."
                 });
             });
-
     }).catch(err => {
         res.status(500).send({
             message:
@@ -51,10 +50,10 @@ exports.create = (req, res) => {
 // Method: GET, Endpoint:/events
 exports.findAll = (req, res) => {
     Event.findAll({
-        attributes: sequelizeConfig.models.event.attributes,
+        attributes: sequelizeConfig.attributes.event,
         include: {
             model: User,
-            attributes: ["firstname", "lastname"]
+            attributes: ["firstname", "lastname", "eventAt"]
         }
     })
         .then(data => {
@@ -76,7 +75,7 @@ exports.findOneById = (req, res) => {
             model: User,
             attributes: ["firstname", "lastname"]
         },
-        attributes: sequelizeConfig.models.event.attributes
+        attributes: sequelizeConfig.attributes.event
     }).then(data => {
         res.send(data);
     }).catch(err => {

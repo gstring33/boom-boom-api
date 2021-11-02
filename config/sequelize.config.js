@@ -1,24 +1,21 @@
 module.exports = {
     attributes : {
-        user: {
-            attributes: [
-                'firstname',
-                'lastname',
-                'email',
-                'roles',
-                'isActive',
-                'isChoiceAllowed',
-                'lastConnectionAt',
-                'createdAt',
-                'updatedAt'
-            ]
-        },
-        event: {
-            attributes: [
-                "location",
-                "name",
-                "createdAt"
-            ]
-        }
+        user: [
+            'firstname',
+            'lastname',
+            'email',
+            'roles',
+            'isActive',
+            'isChoiceAllowed',
+            'lastConnectionAt',
+            'createdAt',
+            'updatedAt'
+        ],
+        event: [
+            "location",
+            "name",
+            "createdAt",
+            "eventAt"
+        ],
     }
 }
