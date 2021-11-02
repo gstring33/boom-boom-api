@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 
     // Save Event in the database
     const { userId, name, location, eventAt } = req.body
-    const event = { name, location, eventAt };
+    const event = { name, location, eventAt, userId };
 
     User.findOne({
         where: { id: userId },
@@ -53,7 +53,8 @@ exports.findAll = (req, res) => {
         attributes: sequelizeConfig.attributes.event,
         include: {
             model: User,
-            attributes: ["firstname", "lastname", "eventAt"]
+            as: 'createdBy',
+            attributes: ["firstname", "lastname"]
         }
     })
         .then(data => {
