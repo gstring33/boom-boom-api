@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
             .then(async user => {
                 // Create token
                 user.token = jwt.sign(
-                    { user_id: user.id, email },
+                    { id: user.id, email, roles: user.roles },
                     jwtConfig.tokenSecretKey,
                     {
                         expiresIn: jwtConfig.expiresIn,
@@ -85,7 +85,7 @@ exports.login = async (req, res) => {
             if (user && (decryptedPassword == password)) {
                 // Create token
                 user.token = jwt.sign(
-                    { user_id: user.id, email },
+                    { id: user.id, email, roles: user.roles },
                     jwtConfig.tokenSecretKey,
                     {
                         expiresIn: jwtConfig.expiresIn,
