@@ -4,7 +4,7 @@ module.exports = (router, bodyParser) => {
 
     router.post('/register', jsonParser, security.register)
 
-    router.post('/login', security.login)
+    router.post('/login', jsonParser, security.login)
 
     router.post('/logout', security.logout)
 }

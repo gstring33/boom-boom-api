@@ -11,5 +11,5 @@ exports.encrypt = (password) => {
 
 exports.decrypt = (password) => {
     const bytes  = CryptoJS.AES.decrypt(password, secret);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8)).toString();
+    return bytes.toString(CryptoJS.enc.Utf8);
 }

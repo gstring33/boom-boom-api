@@ -27,14 +27,14 @@ exports.register = async (req, res) => {
             return res.status(409).send("Problem with registration");
         }
 
-        //Encrypt user password
+        // Encrypt user password
         const passwordService = require('../services/password.services')
         const encryptedPassword = await passwordService.encrypt(password);
 
         // Create user in our database
         const user = { firstname, lastname, isActive: 0, isChoiceAllowed: 0, email, password: encryptedPassword, roles: securityConfig.defaultRole }
-        await User.create(user)
-            .then(user => {
+        User.create(user)
+            .then(async user => {
                 // Create token
                 user.token = jwt.sign(
                     { user_id: user.id, email },
@@ -44,7 +44,7 @@ exports.register = async (req, res) => {
                     }
                 );
                 // save user token
-                user.save()
+                await user.save()
 
                 // return new user
                 res.status(201).send(user);
@@ -61,8 +61,60 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.login = (req, res) => {
+// Login
+// Method:POST, Endpoint:/login
+exports.login = async (req, res) => {
+    // Our login logic starts here
+    try {
+        // Get user input
+        const { email, password } = req.body;
 
+        // Validate user input
+        if (!(email && password)) {
+            res.status(400).send("All input is required");
+        }
+        // Validate if user exist in our database
+        await User.findOne({
+            where: { email: email }
+        }).then(async user => {
+            // Encrypt user password
+            const passwordService = require('../services/password.services')
+            const decryptedPassword = await passwordService.decrypt(user.password);
+            console.log(decryptedPassword)
+
+            if (user && (decryptedPassword == password)) {
+                // Create token
+                user.token = jwt.sign(
+                    { user_id: user.id, email },
+                    jwtConfig.tokenSecretKey,
+                    {
+                        expiresIn: jwtConfig.expiresIn,
+                    }
+                );
+
+                // save user token
+                user.lastConnectionAt = Date.now()
+                await user.save()
+
+                // user
+                res.status(200).send({
+                    login: true,
+                    token: user.token
+                });
+
+                return;
+            }
+
+            res.status(400).send("Invalid Credentials");
+        }).catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred during the login"
+            });
+        });
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 exports.logout = (req, res) => {
