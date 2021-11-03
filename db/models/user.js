@@ -76,6 +76,10 @@ module.exports = (sequelize, DataTypes) => {
     lastConnectionAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
