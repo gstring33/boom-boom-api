@@ -1,9 +1,10 @@
-const security = require("../../src/controllers/security.controllers");
+module.exports = (router, bodyParser) => {
+    const security = require("../../src/controllers/security.controllers");
+    const jsonParser = bodyParser.json()
 
-module.exports = router => {
-    router.get('/register', security.register)
+    router.post('/register', jsonParser, security.register)
 
-    router.get('/login', security.login)
+    router.post('/login', security.login)
 
-    router.get('/logout', security.logout)
+    router.post('/logout', security.logout)
 }
