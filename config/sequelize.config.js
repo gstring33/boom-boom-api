@@ -1,6 +1,7 @@
 module.exports = {
     attributes : {
         user: [
+            'uuid',
             'firstname',
             'lastname',
             'email',

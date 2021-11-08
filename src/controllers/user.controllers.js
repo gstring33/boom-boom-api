@@ -1,6 +1,7 @@
 const db = require("../../db/models");
 const sequelizeConfig = require('../../config/sequelize.config')
 const User = db.User;
+const { v4 } = require('uuid')
 
 // Create and Save a new User
 // Method:POST, Endpoint:/user
@@ -24,7 +25,9 @@ exports.create = (req, res) => {
     const encryptedPassword = passwordService.encrypt(password)
 
     // Save User in the database
-    const user = { firstname, lastname, isActive: 0, isChoiceAllowed: 0, email, password: encryptedPassword, roles }
+    const uuid = v4()
+    console.log(uuid)
+    const user = { uuid: uuid, firstname, lastname, isActive: 0, isChoiceAllowed: 0, email, password: encryptedPassword, roles }
 
     User.create(user)
         .then(data => {
@@ -53,11 +56,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Retrieve one user from id
-// Method:GET, Endpoint:/user/:id
+// Retrieve one user from uuid
+// Method:GET, Endpoint:/user/:uuid
 exports.findOneById = (req, res) => {
     User.findOne({
-        where: { id: req.params.id },
+        where: { uuid: req.params.id },
         attributes: sequelizeConfig.attributes.user
     }).then(data => {
         res.send(data);
@@ -70,14 +73,14 @@ exports.findOneById = (req, res) => {
 };
 
 // Update a User by the id in the request
-// Method:PUT, Endpoint:/user/:id
+// Method:PUT, Endpoint:/user/:uuid
 exports.update = (req, res) => {
     const { firstname, lastname, isActive, email, roles } = req.body
     const user = { firstname, lastname, isActive, email, roles }
 
     User.update(
         user,
-        {returning: true, where: { id: req.params.id }}
+        {returning: true, where: { uuid: req.params.id }}
     ).then(data => {
         res.send(data);
     }).catch(err => {
@@ -89,10 +92,10 @@ exports.update = (req, res) => {
 };
 
 // Delete a User with the specified id in the request
-// Method:DELETE, Endpoint:/user/:id
+// Method:DELETE, Endpoint:/user/:uuid
 exports.deleteOne = (req, res) => {
     User.destroy({
-        where: {id: req.params.id}
+        where: {uuid: req.params.id}
     }).then(data => {
         res.send(data);
     }).catch(err => {
