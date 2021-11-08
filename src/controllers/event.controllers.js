@@ -2,6 +2,7 @@ const db = require("../../db/models");
 const User = db.User;
 const Event = db.Events;
 const sequelizeConfig = require('../../config/sequelize.config')
+const { parse, stringify } = require('uuid')
 
 // Create and Save a new Event
 // Method:POST, Endpoint:/event
@@ -16,21 +17,28 @@ exports.create = (req, res) => {
 
     // Save Event in the database
     const { userId, name, location, eventAt } = req.body
-    const event = { name, location, eventAt, userId };
+    const uuid = stringify(parse(userId))
 
     User.findOne({
-        where: { uuid: userId },
-    }).then(data => {
-        if (data == null) {
+        where: { uuid: uuid },
+    }).then(user => {
+        if (user == null) {
             res.status(400).send({
                 message: "Content invalid"
             })
 
             return;
         }
+        const event = { name, location, eventAt, userId: user.id };
+
         Event.create(event)
-            .then(data => {
-                res.send(data);
+            .then(event => {
+                const eventData = {
+                    name: event.name,
+                    location: event.location,
+                    eventAt: event.eventAt,
+                }
+                res.send(eventData);
             })
             .catch(err => {
                 res.status(500).send({
