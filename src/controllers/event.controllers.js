@@ -19,7 +19,7 @@ exports.create = (req, res) => {
     const event = { name, location, eventAt, userId };
 
     User.findOne({
-        where: { id: userId },
+        where: { uuid: userId },
     }).then(data => {
         if (data == null) {
             res.status(400).send({
@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
         include: {
             model: User,
             as: 'createdBy',
-            attributes: ["firstname", "lastname"]
+            attributes: ["uuid","firstname", "lastname"]
         }
     })
         .then(data => {
@@ -74,7 +74,8 @@ exports.findOneById = (req, res) => {
         where: { id: req.params.id },
         include: {
             model: User,
-            attributes: ["firstname", "lastname"]
+            as: 'createdBy',
+            attributes: ["uuid", "firstname", "lastname"]
         },
         attributes: sequelizeConfig.attributes.event
     }).then(data => {
