@@ -1,7 +1,8 @@
-const db = require("../models");
-const User = db.user;
-const Event = db.event;
-const sequelizeConfig = require('../config/sequelize.config')
+const db = require("../../db/models");
+const User = db.User;
+const Event = db.Events;
+const sequelizeConfig = require('../../config/sequelize.config')
+const { parse, stringify } = require('uuid')
 
 // Create and Save a new Event
 // Method:POST, Endpoint:/event
@@ -15,22 +16,29 @@ exports.create = (req, res) => {
     }
 
     // Save Event in the database
-    const { userId, name, location } = req.body
-    const event = { userId, name, location };
+    const { userId, name, location, eventAt } = req.body
+    const uuid = stringify(parse(userId))
 
     User.findOne({
-        where: { id: userId },
-    }).then(data => {
-        if (data == null) {
+        where: { uuid: uuid },
+    }).then(user => {
+        if (user == null) {
             res.status(400).send({
                 message: "Content invalid"
             })
 
             return;
         }
+        const event = { name, location, eventAt, userId: user.id };
+
         Event.create(event)
-            .then(data => {
-                res.send(data);
+            .then(event => {
+                const eventData = {
+                    name: event.name,
+                    location: event.location,
+                    eventAt: event.eventAt,
+                }
+                res.send(eventData);
             })
             .catch(err => {
                 res.status(500).send({
@@ -38,7 +46,6 @@ exports.create = (req, res) => {
                         err.message || "Some error occurred while creating the Event."
                 });
             });
-
     }).catch(err => {
         res.status(500).send({
             message:
@@ -51,10 +58,11 @@ exports.create = (req, res) => {
 // Method: GET, Endpoint:/events
 exports.findAll = (req, res) => {
     Event.findAll({
-        attributes: sequelizeConfig.models.event.attributes,
+        attributes: sequelizeConfig.attributes.event,
         include: {
             model: User,
-            attributes: ["firstname", "lastname"]
+            as: 'createdBy',
+            attributes: ["uuid","firstname", "lastname"]
         }
     })
         .then(data => {
@@ -74,9 +82,10 @@ exports.findOneById = (req, res) => {
         where: { id: req.params.id },
         include: {
             model: User,
-            attributes: ["firstname", "lastname"]
+            as: 'createdBy',
+            attributes: ["uuid", "firstname", "lastname"]
         },
-        attributes: sequelizeConfig.models.event.attributes
+        attributes: sequelizeConfig.attributes.event
     }).then(data => {
         res.send(data);
     }).catch(err => {
@@ -109,6 +118,13 @@ exports.update = (req, res) => {
 // Delete one event
 // Method:DELETE, Endpoint:/event/:id
 exports.deleteOne = (req, res) => {
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
+
     Event.destroy({
         where: {id: req.params.id}
     }).then(data => {

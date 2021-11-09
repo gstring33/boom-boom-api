@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node src/app.js",
         "dev": "nodemon src/app.js -e js,hbs",
-        "create-migration": "node migration.js add migration create_table_users"
+        "migrate": "npx sequelize-cli db:migrate",
+        "migrate-undo": "npx sequelize-cli db:migrate:undo"
     },
     "repository": {
         "type": "git",
@@ -19,15 +20,19 @@
     },
     "homepage": "https://github.com/gstring33/boom-boom-api#readme",
     "devDependencies": {
-        "nodemon": "^2.0.13"
+        "babel-register": "^6.26.0",
+        "nodemon": "^2.0.13",
+        "sequelize-cli": "^6.2.0"
     },
     "dependencies": {
         "body-parser": "^1.19.0",
         "crypto-js": "^4.1.1",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
         "mysql-migrations": "^1.0.7",
         "mysql2": "^2.3.0",
-        "sequelize": "^6.7.0"
+        "sequelize": "^6.7.0",
+        "uuid": "^8.3.2"
     }
 }

@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
 
-const db = require('./models')
+const db = require('../db/models')
 db.sequelize.sync()
 
-const router = require('./router')
+const router = require('../router')
 app.use('/api', router)
 
 const port = process.env.PORT || 3000
