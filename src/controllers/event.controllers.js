@@ -118,6 +118,13 @@ exports.update = (req, res) => {
 // Delete one event
 // Method:DELETE, Endpoint:/event/:id
 exports.deleteOne = (req, res) => {
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
+
     Event.destroy({
         where: {id: req.params.id}
     }).then(data => {
