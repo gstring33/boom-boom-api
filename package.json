@@ -20,11 +20,11 @@
     },
     "homepage": "https://github.com/gstring33/boom-boom-api#readme",
     "devDependencies": {
-        "babel-register": "^6.26.0",
         "nodemon": "^2.0.13",
-        "sequelize-cli": "^6.2.0"
     },
     "dependencies": {
+        "babel-register": "^6.26.0",
+        "sequelize-cli": "^6.2.0",
         "body-parser": "^1.19.0",
         "crypto-js": "^4.1.1",
         "dotenv": "^10.0.0",
