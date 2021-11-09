@@ -97,7 +97,7 @@ exports.update = async (req, res) => {
         where: { id: req.user.id }
     })
 
-    if (currentUser.uuid !== req.params.id) {
+    if (!req.isAdmin && currentUser.uuid !== req.params.id) {
         res.status(403).send({
             message: "Forbidden",
         });
