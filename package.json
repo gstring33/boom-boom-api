@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/gstring33/boom-boom-api#readme",
     "devDependencies": {
-        "nodemon": "^2.0.13",
+        "nodemon": "^2.0.13"
     },
     "dependencies": {
         "babel-register": "^6.26.0",
