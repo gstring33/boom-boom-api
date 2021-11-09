@@ -9,7 +9,9 @@ const verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, jwtConfig.tokenSecretKey);
+        const isAdmin = decoded.roles.includes('ROLE_ADMIN')
         req.user = decoded;
+        req.isAdmin = isAdmin;
     } catch (err) {
         return res.status(401).send("Invalid Token");
     }

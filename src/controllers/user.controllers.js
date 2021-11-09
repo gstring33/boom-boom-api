@@ -13,6 +13,13 @@ exports.create = (req, res) => {
         });
         return;
     }
+
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
     const { firstname, lastname, password, password2, email, roles } = req.body
 
     const passwordService = require('../services/password.services')
@@ -26,7 +33,6 @@ exports.create = (req, res) => {
 
     // Save User in the database
     const uuid = v4()
-    console.log(uuid)
     const user = { uuid: uuid, firstname, lastname, isActive: 0, isChoiceAllowed: 0, email, password: encryptedPassword, roles }
 
     User.create(user)
@@ -44,6 +50,12 @@ exports.create = (req, res) => {
 // Retrieve all users
 // Method:GET, Endpoint:/users
 exports.findAll = (req, res) => {
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
     User.findAll({
         attributes: sequelizeConfig.attributes.user
     }).then(data => {
@@ -59,6 +71,12 @@ exports.findAll = (req, res) => {
 // Retrieve one user from uuid
 // Method:GET, Endpoint:/user/:uuid
 exports.findOneById = (req, res) => {
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
     User.findOne({
         where: { uuid: req.params.id },
         attributes: sequelizeConfig.attributes.user
@@ -74,9 +92,23 @@ exports.findOneById = (req, res) => {
 
 // Update a User by the id in the request
 // Method:PUT, Endpoint:/user/:uuid
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
+    const currentUser = await  User.findOne({
+        where: { id: req.user.id }
+    })
+
+    if (currentUser.uuid !== req.params.id) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
+
     const { firstname, lastname, isActive, email, roles } = req.body
-    const user = { firstname, lastname, isActive, email, roles }
+
+    const user = req.isAdmin ?
+        { firstname, lastname, isActive, email, roles } :
+        { firstname, lastname, email }
 
     User.update(
         user,
@@ -94,6 +126,13 @@ exports.update = (req, res) => {
 // Delete a User with the specified id in the request
 // Method:DELETE, Endpoint:/user/:uuid
 exports.deleteOne = (req, res) => {
+    if (!req.isAdmin) {
+        res.status(403).send({
+            message: "Forbidden",
+        });
+        return;
+    }
+
     User.destroy({
         where: {uuid: req.params.id}
     }).then(data => {
